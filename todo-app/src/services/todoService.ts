@@ -6,6 +6,7 @@ export interface TodoService {
   getAll(): Promise<Todo[]>;
   add(text: string): Promise<Todo>;
   toggle(id: string, completed: boolean): Promise<Todo>;
+  toggleImportant(id: string, important: boolean): Promise<Todo>;
   update(id: string, text: string): Promise<Todo>;
   remove(id: string): Promise<void>;
   clearCompleted(): Promise<void>;

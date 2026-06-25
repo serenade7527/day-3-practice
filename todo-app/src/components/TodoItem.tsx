@@ -4,11 +4,12 @@ import type { Todo } from '../types/todo';
 interface Props {
   todo: Todo;
   onToggle: (id: string, completed: boolean) => void;
+  onToggleImportant: (id: string, important: boolean) => void;
   onUpdate: (id: string, text: string) => void;
   onRemove: (id: string) => void;
 }
 
-export function TodoItem({ todo, onToggle, onUpdate, onRemove }: Props) {
+export function TodoItem({ todo, onToggle, onToggleImportant, onUpdate, onRemove }: Props) {
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
 
@@ -57,6 +58,16 @@ export function TodoItem({ todo, onToggle, onUpdate, onRemove }: Props) {
           {todo.text}
         </span>
       )}
+
+      <button
+        onClick={() => onToggleImportant(todo.id, !todo.important)}
+        className={`text-xl leading-none transition-colors ${
+          todo.important ? 'text-yellow-400' : 'opacity-0 group-hover:opacity-100 text-gray-300 hover:text-yellow-400'
+        }`}
+        aria-label="중요 표시"
+      >
+        ★
+      </button>
 
       <button
         onClick={() => onRemove(todo.id)}

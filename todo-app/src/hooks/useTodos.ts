@@ -28,6 +28,11 @@ export function useTodos() {
     setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
   }, []);
 
+  const toggleImportant = useCallback(async (id: string, important: boolean) => {
+    const updated = await service.toggleImportant(id, important);
+    setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
+  }, []);
+
   const updateTodo = useCallback(async (id: string, text: string) => {
     if (!text.trim()) return;
     const updated = await service.update(id, text);
@@ -62,6 +67,7 @@ export function useTodos() {
     setFilter,
     addTodo,
     toggleTodo,
+    toggleImportant,
     updateTodo,
     removeTodo,
     clearCompleted,

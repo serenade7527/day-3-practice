@@ -31,6 +31,7 @@ export const localTodoService: TodoService = {
       id: crypto.randomUUID(),
       text: text.trim(),
       completed: false,
+      important: false,
       created_at: new Date().toISOString(),
     };
     save([...todos, todo]);
@@ -41,6 +42,15 @@ export const localTodoService: TodoService = {
     const todos = load();
     const updated = todos.map((t) =>
       t.id === id ? { ...t, completed } : t
+    );
+    save(updated);
+    return updated.find((t) => t.id === id)!;
+  },
+
+  async toggleImportant(id, important) {
+    const todos = load();
+    const updated = todos.map((t) =>
+      t.id === id ? { ...t, important } : t
     );
     save(updated);
     return updated.find((t) => t.id === id)!;

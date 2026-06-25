@@ -13,6 +13,7 @@ function App() {
     setFilter,
     addTodo,
     toggleTodo,
+    toggleImportant,
     updateTodo,
     removeTodo,
     clearCompleted,
@@ -34,6 +35,7 @@ function App() {
             <TodoList
               todos={todos}
               onToggle={toggleTodo}
+              onToggleImportant={toggleImportant}
               onUpdate={updateTodo}
               onRemove={removeTodo}
             />
