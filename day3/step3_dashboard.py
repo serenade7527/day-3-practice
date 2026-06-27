@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.set_page_config(page_title="카페 VoC 대시보드", layout="wide")
 st.title("☕ 카페 고객 피드백 대시보드")
@@ -21,7 +22,18 @@ with left:
     st.subheader("유형별 피드백 현황")
     counts = df["유형"].value_counts().reset_index()
     counts.columns = ["유형", "건수"]
-    st.bar_chart(counts.set_index("유형"))
+    color_map = {"불만": "#EF553B", "칭찬": "#00CC96", "요청": "#636EFA", "문의": "#FFA15A"}
+    fig = px.bar(
+        counts,
+        x="유형",
+        y="건수",
+        color="유형",
+        color_discrete_map=color_map,
+        text="건수",
+    )
+    fig.update_layout(showlegend=False, xaxis_title="", yaxis_title="건수")
+    fig.update_traces(textposition="outside")
+    st.plotly_chart(fig, use_container_width=True)
 
 with right:
     st.subheader("🚨 긴급 불만 Top 3")
